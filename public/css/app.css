@@ -1,0 +1,32 @@
+/*  ----- Table ----- */
+table {
+    border-collapse: collapse;
+    width: 50%;
+}
+
+thead {
+    height: 50px;
+    text-align: left;
+}
+
+tbody {
+    text-align: left;
+}
+
+tr,
+th {
+    border: 1px solid black;
+    white-space: nowrap;
+    padding: 5px;
+}
+
+tr,
+td {
+    border: 1px solid black;
+    white-space: nowrap;
+    padding: 5px;
+}
+
+/* tr:nth-child(even) {
+    background-color: grey;
+} */
