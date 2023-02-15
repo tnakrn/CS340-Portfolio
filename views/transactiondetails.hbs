@@ -1,0 +1,56 @@
+<h2>Transaction Details</h2>
+
+{{!-- Table that shows all of the transaction details --}}
+<table id="transactiondetails-table">
+    <thead>
+        {{!-- Print column headers --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{!-- For each row, print attributes in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.transactionDetailsID}}</td>
+            <td>{{this.transactionDetails}}</td>
+            <td>{{this.ingredientName}}</td>
+            <td>{{this.ingredientQty}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+{{!-- Create a new transaction detail --}}
+<h3>Add New Transaction Detail</h3>
+<p>Enter new transaction detail information in the form below:</p>
+<form id="add-clothingingredient-form-ajax">
+    <label for="input-transactionID">Transaction: </label>
+    {{!-- <input type="text" name="input-transactionID" id="input-transactionID"> --}}
+    <select name="input-transactionID" id="input-transactionID-ajax">
+        <option value="">Select a Transaction</option>
+        {{#each transactions}}
+        <option value="{{this.transactionID}}">{{this.transactionDate}}, {{this.player}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-ingredientID">Ingredient: </label>
+    {{!-- <input type="text" name="input-ingredientID" id="input-ingredientID"> --}}
+    <select name="input-ingredientID" id="input-ingredientID-ajax">
+        <option value="">Select an Ingredient</option>
+        {{#each ingredients}}
+        <option value="{{this.ingredientID}}">{{this.ingredientName}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-ingredientQty">Quantity: </label>
+    <input type="number" name="input-ingredientQty" id="input-ingredientQty">
+
+    <input type="submit">
+</form>

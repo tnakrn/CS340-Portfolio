@@ -1,0 +1,89 @@
+<h2>Clothing Items</h2>
+
+{{!-- Table that shows all of the garment sets --}}
+<table id="clothingitem-table">
+    <thead>
+        {{!-- Print column headers --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{!-- For each row, print attributes in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.clothingID}}</td>
+            <td>{{this.clothingName}}</td>
+            <td>{{this.clothingDescription}}</td>
+            <td>{{this.garmentName}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+{{!-- Search for a clothing item --}}
+{{!-- <h3>Search for a Clothing Item</h3>
+<p>Search by entering a clothing item name in the form below:</p>
+<form id="search-clothingitem-html" method='GET' action='/clothingitems'>
+    <label for="input-clothingName">Search by Clothing Item Name: </label>
+    <input type="text" name="clothingName" id="input-clothingName-html-search">
+
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form> --}}
+
+
+{{!-- Create a new clothing item --}}
+<h3>Add New Clothing Item</h3>
+<p>Enter new clothing item information in the form below:</p>
+<form id="add-clothingingredient-form-ajax">
+    <label for="input-clothingName">Clothing Name: </label>
+    <input type="text" name="input-clothingName" id="input-clothingName">
+
+    <label for="input-clothingDescription">Description: </label>
+    <input type="text" name="input-clothingDescription" id="input-clothingDescription">
+
+    <label for="input-garmentID">Associated Garment Set: </label>
+    <select name="input-garmentID" id="input-garmentID-ajax">
+        <option value="">Select a Garment Set</option>
+        {{#each garments}}
+        <option value="{{this.garmentID}}">{{this.garmentName}}</option>
+        {{/each}}
+    </select>
+
+    <input type="submit">
+</form>
+
+
+{{!-- Update a clothing items --}}
+<h3>Update a Clothing Item</h3>
+<p>Use the form below to update information for a clothing item:</p>
+<form id="update-transaction-form-ajax">
+
+    <label for="input-clothingitemNew">Clothing Item: </label>
+    <select name="input-clothingitemNew" id="mySelect">
+        <option value="test">Select the Clothing Item</option>
+        {{#each data}}
+        <option value="{{this.clothingID}}">{{this.clothingName}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-clothingDescriptionNew">Description: </label>
+    <input type="text" name="input-clothingDescriptionNew" id="input-clothingDescriptionNew">
+
+    <label for="input-garmentIDNew">Garment Set: </label>
+    <select name="input-garmentIDNew" id="input-garmentIDNew-update">
+        <option>Select a Garment Set</option>
+        {{#each garments}}
+        <option value="{{this.garmentID}}">{{this.garmentName}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+
+</form>

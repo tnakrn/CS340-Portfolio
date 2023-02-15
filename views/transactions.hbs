@@ -1,0 +1,86 @@
+<h2>Transactions</h2>
+
+{{!-- Table that shows all of the transactions --}}
+<table id="transaction-table">
+    <thead>
+        {{!-- Print column headers --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            {{!-- IF WE WANT A DELETE COLUMN LABEL UN-COMMENT THE LINE BELOW --}}
+            {{!-- <th>Delete</th> --}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{!-- For each row, print attributes in order --}}
+        {{#each data}}
+        <tr data-value={{this.transactionID}}>
+            <td>{{this.transactionID}}</td>
+            <td>{{this.transactionDate}}</td>
+            <td>{{this.player}}</td>
+            {{!-- Delete a transaction (button in table) --}}
+            <td><button onclick="deleteTransaction({{this.id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+{{!-- Search for a transaction --}}
+{{!-- <h3>Search for a Transaction</h3>
+<p>Search by entering a user name in the form below:</p>
+<form id="search-transaction-html" method='GET' action='/transactions'>
+    <label for="input-userName">Search by User Name: </label>
+    <input type="text" name="userName" id="input-userName-html-search">
+
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form> --}}
+
+
+{{!-- Add a new transaction --}}
+<h3>Add New Transaction</h3>
+<p>Enter new transaction information in the form below:</p>
+<form id="add-transaction-form-ajax">
+    <label for="input-transactionDate">Date: </label>
+    <input type="text" name="input-transactionDate" id="input-transactionDate">
+
+    <label for="input-playerID">Player: </label>
+    <select name="input-playerID" id="input-playerID-ajax">
+        <option value="">Select a Player</option>
+        {{#each players}}
+        <option value="{{this.playerID}}">{{this.userName}}</option>
+        {{/each}}
+    </select>
+
+    <input type="submit">
+</form>
+
+
+{{!-- Update a transaction --}}
+<h3>Update a Transaction</h3>
+<p>Use the form below to update what player is associated with a transaction:</p>
+<form id="update-transaction-form-ajax">
+
+    <label for="input-transactionNew">Transaction: </label>
+    <select name="input-transactionNew" id="mySelect">
+        <option value="test">Select the Transaction</option>
+        {{#each data}}
+        <option value="{{this.transactionID}}">{{this.transactionDate}}, {{this.player}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-playerIDNew">Player: </label>
+    <select name="input-playerIDNew" id="input-playerIDNew-update">
+        <option>Select a Player</option>
+        {{#each players}}
+        <option value="{{this.playerID}}">{{this.userName}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+
+</form>

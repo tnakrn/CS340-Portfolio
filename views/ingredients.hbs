@@ -1,0 +1,52 @@
+<h2>Ingredients</h2>
+
+{{!-- Table that shows all of the ingredients --}}
+<table id="ingredients-table">
+    <thead>
+        {{!-- Print column headers --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{!-- For each row, print attributes in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.ingredientID}}</td>
+            <td>{{this.ingredientName}}</td>
+            <td>{{this.ingredientDescription}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+{{!-- Search for an ingredient --}}
+{{!-- <h3>Search for an Ingredient</h3>
+<p>Search by entering a ingredient name in the form below:</p>
+<form id="search-ingredient-html" method='GET' action='/ingredients'>
+    <label for="input-ingredientName">Search by Ingredient Name: </label>
+    <input type="text" name="ingredientName" id="input-ingredientName-html-search">
+
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form> --}}
+
+
+{{!-- Create a new ingredient --}}
+<h3>Add New Ingredient</h3>
+<p>Enter new ingredient information in the form below:</p>
+<form id="add-ingredient-form-ajax">
+    <label for="input-ingredientName">Ingredient Name: </label>
+    <input type="text" name="input-ingredientName" id="input-ingredientName">
+
+    <label for="input-ingredientDescription">Description: </label>
+    <input type="text" name="input-ingredientDescription" id="input-ingredientDescription">
+
+    <input type="submit">
+</form>

@@ -1,0 +1,64 @@
+<h2>Players</h2>
+
+{{!-- Table that shows all of the players --}}
+<table id="players-table">
+    <thead>
+        {{!-- Print column headers --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{!-- For each row, print attributes in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.playerID}}</td>
+            <td>{{this.userName}}</td>
+            <td>{{this.firstName}}</td>
+            <td>{{this.lastName}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.joinDate}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+{{!-- Search for a player
+<h3>Search for a Player</h3>
+<p>Search by entering a user name in the form below:</p>
+<form id="search-player-html" method='GET' action='/players'>
+    <label for="input-userName">Search by User Name: </label>
+    <input type="text" name="userName" id="input-userName-html-search">
+
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form> --}}
+
+
+{{!-- Create a new player --}}
+<h3>Add New Player</h3>
+<p>Enter new player information in the form below:</p>
+<form id="add-player-form-ajax">
+    <label for="input-userName">User Name: </label>
+    <input type="text" name="input-userName" id="input-userName">
+
+    <label for="input-firstName">First Name: </label>
+    <input type="text" name="input-firstName" id="input-firstName">
+
+    <label for="input-lastName">Last Name: </label>
+    <input type="text" name="input-lastName" id="input-lastName">
+
+    <label for="input-email">Email: </label>
+    <input type="text" name="input-email" id="input-email">
+
+    <label for="input-joinDate">Join Date: </label>
+    <input type="date" name="input-joinDate" id="input-joinDate">
+
+    <input type="submit">
+</form>

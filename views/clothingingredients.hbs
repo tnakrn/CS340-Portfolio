@@ -1,0 +1,56 @@
+<h2>Clothing Ingredients</h2>
+
+{{!-- Table that shows all of the clothing-ingredients --}}
+<table id="clothingingredients-table">
+    <thead>
+        {{!-- Print column headers --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{!-- For each row, print attributes in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.clothingIngredientsID}}</td>
+            <td>{{this.clothingName}}</td>
+            <td>{{this.ingredientName}}</td>
+            <td>{{this.ingredientQty}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+{{!-- Create a new clothing-ingredient --}}
+<h3>Add New Clothing-Ingredient</h3>
+<p>Enter new clothing-ingredient information in the form below:</p>
+<form id="add-clothingingredient-form-ajax">
+    <label for="input-clothingID">Clothing: </label>
+    {{!-- <input type="text" name="input-clothingID" id="input-clothingID"> --}}
+    <select name="input-clothingID" id="input-clothingID-ajax">
+        <option value="">Select a Clothing Item</option>
+        {{#each clothingitems}}
+        <option value="{{this.clothingID}}">{{this.clothingName}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-ingredientID">Ingredient: </label>
+    {{!-- <input type="text" name="input-ingredientID" id="input-ingredientID"> --}}
+    <select name="input-ingredientID" id="input-ingredientID-ajax">
+        <option value="">Select an Ingredient</option>
+        {{#each ingredients}}
+        <option value="{{this.ingredientID}}">{{this.ingredientName}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-ingredientQty">Quantity: </label>
+    <input type="number" name="input-ingredientQty" id="input-ingredientQty">
+
+    <input type="submit">
+</form>
