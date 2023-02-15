@@ -21,9 +21,6 @@ app.engine('.hbs', exphbs.engine({
 }));
 app.set('view engine', '.hbs');
 
-// // Handlebars helper
-// var helpers = require('handlebars-helpers')();
-
 // Static Files
 app.use(express.static('public'));
 
