@@ -30,10 +30,9 @@
 {{!-- Create a new clothing-ingredient --}}
 <h3>Add New Clothing-Ingredient</h3>
 <p>Enter new clothing-ingredient information in the form below:</p>
-<form id="add-clothingingredient-form-ajax">
+<form id="add-clothingingredient-form" method="POST" action="/add-clothingingredient-form">
     <label for="input-clothingID">Clothing: </label>
-    {{!-- <input type="text" name="input-clothingID" id="input-clothingID"> --}}
-    <select name="input-clothingID" id="input-clothingID-ajax">
+    <select name="input-clothingID" id="input-clothingID">
         <option value="">Select a Clothing Item</option>
         {{#each clothingitems}}
         <option value="{{this.clothingID}}">{{this.clothingName}}</option>
@@ -41,8 +40,7 @@
     </select>
 
     <label for="input-ingredientID">Ingredient: </label>
-    {{!-- <input type="text" name="input-ingredientID" id="input-ingredientID"> --}}
-    <select name="input-ingredientID" id="input-ingredientID-ajax">
+    <select name="input-ingredientID" id="input-ingredientID">
         <option value="">Select an Ingredient</option>
         {{#each ingredients}}
         <option value="{{this.ingredientID}}">{{this.ingredientName}}</option>

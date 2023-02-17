@@ -42,7 +42,7 @@
 {{!-- Create a new clothing item --}}
 <h3>Add New Clothing Item</h3>
 <p>Enter new clothing item information in the form below:</p>
-<form id="add-clothingingredient-form-ajax">
+<form id="add-clothingitem-form" method="POST" action="/add-clothingitem-form">
     <label for="input-clothingName">Clothing Name: </label>
     <input type="text" name="input-clothingName" id="input-clothingName">
 
@@ -50,7 +50,7 @@
     <input type="text" name="input-clothingDescription" id="input-clothingDescription">
 
     <label for="input-garmentID">Associated Garment Set: </label>
-    <select name="input-garmentID" id="input-garmentID-ajax">
+    <select name="input-garmentID" id="input-garmentID">
         <option value="">Select a Garment Set</option>
         {{#each garments}}
         <option value="{{this.garmentID}}">{{this.garmentName}}</option>
@@ -64,7 +64,7 @@
 {{!-- Update a clothing items --}}
 <h3>Update a Clothing Item</h3>
 <p>Use the form below to update information for a clothing item:</p>
-<form id="update-transaction-form-ajax">
+<form id="update-clothingitem-form-ajax">
 
     <label for="input-clothingitemNew">Clothing Item: </label>
     <select name="input-clothingitemNew" id="mySelect">

@@ -45,12 +45,12 @@
 {{!-- Add a new transaction --}}
 <h3>Add New Transaction</h3>
 <p>Enter new transaction information in the form below:</p>
-<form id="add-transaction-form-ajax">
+<form id="add-transaction-form" method="POST" action="/add-transaction-form">
     <label for="input-transactionDate">Date: </label>
     <input type="text" name="input-transactionDate" id="input-transactionDate">
 
     <label for="input-playerID">Player: </label>
-    <select name="input-playerID" id="input-playerID-ajax">
+    <select name="input-playerID" id="input-playerID">
         <option value="">Select a Player</option>
         {{#each players}}
         <option value="{{this.playerID}}">{{this.userName}}</option>
