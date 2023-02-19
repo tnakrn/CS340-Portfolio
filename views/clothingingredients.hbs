@@ -5,11 +5,10 @@
     <thead>
         {{!-- Print column headers --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>ID</th>
+            <th>Clothing Name</th>
+            <th>Ingredient Name</th>
+            <th>Ingredient Quantity</th>
         </tr>
     </thead>
 
@@ -31,7 +30,7 @@
 <h3>Add New Clothing-Ingredient</h3>
 <p>Enter new clothing-ingredient information in the form below:</p>
 <form id="add-clothingingredient-form" method="POST" action="/add-clothingingredient-form">
-    <label for="input-clothingID">Clothing: </label>
+    <label for="input-clothingID">Clothing Name: </label>
     <select name="input-clothingID" id="input-clothingID">
         <option value="">Select a Clothing Item</option>
         {{#each clothingitems}}
@@ -39,7 +38,7 @@
         {{/each}}
     </select>
 
-    <label for="input-ingredientID">Ingredient: </label>
+    <label for="input-ingredientID">Ingredient Name: </label>
     <select name="input-ingredientID" id="input-ingredientID">
         <option value="">Select an Ingredient</option>
         {{#each ingredients}}
@@ -47,7 +46,7 @@
         {{/each}}
     </select>
 
-    <label for="input-ingredientQty">Quantity: </label>
+    <label for="input-ingredientQty">Ingredient Quantity: </label>
     <input type="number" name="input-ingredientQty" id="input-ingredientQty">
 
     <input type="submit">

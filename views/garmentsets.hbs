@@ -5,11 +5,9 @@
     <thead>
         {{!-- Print column headers --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
         </tr>
     </thead>
 
@@ -42,7 +40,7 @@
 <h3>Add New Garment Set</h3>
 <p>Enter new garment set information in the form below:</p>
 <form id="add-garmentset-form" method="POST" action="/add-garmentset-form">
-    <label for="input-garmentName">Garment Set Name: </label>
+    <label for="input-garmentName">Name: </label>
     <input type="text" name="input-garmentName" id="input-garmentName">
 
     <label for="input-garmentDescription">Description: </label>

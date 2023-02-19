@@ -5,11 +5,9 @@
     <thead>
         {{!-- Print column headers --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
         </tr>
     </thead>
 
@@ -42,7 +40,7 @@
 <h3>Add New Ingredient</h3>
 <p>Enter new ingredient information in the form below:</p>
 <form id="add-ingredient-form" method="POST" action="/add-ingredient-form">
-    <label for="input-ingredientName">Ingredient Name: </label>
+    <label for="input-ingredientName">Name: </label>
     <input type="text" name="input-ingredientName" id="input-ingredientName">
 
     <label for="input-ingredientDescription">Description: </label>

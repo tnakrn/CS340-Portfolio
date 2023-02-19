@@ -1,15 +1,14 @@
 <h2>Clothing Items</h2>
 
-{{!-- Table that shows all of the garment sets --}}
-<table id="clothingitem-table">
+{{!-- Table that shows all of the clothing items --}}
+<table id="clothingitems-table">
     <thead>
         {{!-- Print column headers --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Associated Garment Set</th>
         </tr>
     </thead>
 
@@ -43,7 +42,7 @@
 <h3>Add New Clothing Item</h3>
 <p>Enter new clothing item information in the form below:</p>
 <form id="add-clothingitem-form" method="POST" action="/add-clothingitem-form">
-    <label for="input-clothingName">Clothing Name: </label>
+    <label for="input-clothingName">Name: </label>
     <input type="text" name="input-clothingName" id="input-clothingName">
 
     <label for="input-clothingDescription">Description: </label>
@@ -61,14 +60,14 @@
 </form>
 
 
-{{!-- Update a clothing items --}}
+{{!-- Update a clothing items CURRENTLY AJAX SETUP BUT WE CAN DO HTML POST--}}
 <h3>Update a Clothing Item</h3>
 <p>Use the form below to update information for a clothing item:</p>
-<form id="update-clothingitem-form-ajax">
+<form id="update-transaction-form-ajax">
 
-    <label for="input-clothingitemNew">Clothing Item: </label>
-    <select name="input-clothingitemNew" id="mySelect">
-        <option value="test">Select the Clothing Item</option>
+    <label for="input-clothingNameNew">Name: </label>
+    <select name="input-clothingNameNew" id="input-clothingNameNew">
+        <option value="">Select the Clothing Name</option>
         {{#each data}}
         <option value="{{this.clothingID}}">{{this.clothingName}}</option>
         {{/each}}
@@ -77,9 +76,9 @@
     <label for="input-clothingDescriptionNew">Description: </label>
     <input type="text" name="input-clothingDescriptionNew" id="input-clothingDescriptionNew">
 
-    <label for="input-garmentIDNew">Garment Set: </label>
-    <select name="input-garmentIDNew" id="input-garmentIDNew-update">
-        <option>Select a Garment Set</option>
+    <label for="input-garmentIDNew">Associated Garment Set: </label>
+    <select name="input-garmentIDNew" id="input-garmentIDNew">
+        <option value="">Select a Garment Set</option>
         {{#each garments}}
         <option value="{{this.garmentID}}">{{this.garmentName}}</option>
         {{/each}}

@@ -5,13 +5,9 @@
     <thead>
         {{!-- Print column headers --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-            {{!-- IF WE WANT A DELETE COLUMN LABEL UN-COMMENT THE LINE BELOW --}}
-            {{!-- <th>Delete</th> --}}
+            <th>ID</th>
+            <th>Date</th>
+            <th>Player</th>
         </tr>
     </thead>
 
@@ -61,22 +57,22 @@
 </form>
 
 
-{{!-- Update a transaction --}}
+{{!-- Update a transaction CURRENTLY USING AJAX SWITCH TO HTML?--}}
 <h3>Update a Transaction</h3>
 <p>Use the form below to update what player is associated with a transaction:</p>
 <form id="update-transaction-form-ajax">
 
     <label for="input-transactionNew">Transaction: </label>
-    <select name="input-transactionNew" id="mySelect">
-        <option value="test">Select the Transaction</option>
+    <select name="input-transactionNew" id="input-transactionNew">
+        <option value="">Select the Transaction</option>
         {{#each data}}
         <option value="{{this.transactionID}}">{{this.transactionDate}}, {{this.player}}</option>
         {{/each}}
     </select>
 
     <label for="input-playerIDNew">Player: </label>
-    <select name="input-playerIDNew" id="input-playerIDNew-update">
-        <option>Select a Player</option>
+    <select name="input-playerIDNew" id="input-playerIDNew">
+        <option value="">Select a Player</option>
         {{#each players}}
         <option value="{{this.playerID}}">{{this.userName}}</option>
         {{/each}}

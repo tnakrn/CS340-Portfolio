@@ -5,11 +5,10 @@
     <thead>
         {{!-- Print column headers --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>ID</th>
+            <th>Transaction</th>
+            <th>Ingredient Name</th>
+            <th>Ingredient Quantity</th>
         </tr>
     </thead>
 
@@ -32,7 +31,6 @@
 <p>Enter new transaction detail information in the form below:</p>
 <form id="add-transactiondetail-form" method="POST" action="/add-transactiondetail-form">
     <label for="input-transactionID">Transaction: </label>
-    {{!-- <input type="text" name="input-transactionID" id="input-transactionID"> --}}
     <select name="input-transactionID" id="input-transactionID">
         <option value="">Select a Transaction</option>
         {{#each transactions}}
@@ -40,8 +38,7 @@
         {{/each}}
     </select>
 
-    <label for="input-ingredientID">Ingredient: </label>
-    {{!-- <input type="text" name="input-ingredientID" id="input-ingredientID"> --}}
+    <label for="input-ingredientID">Ingredient Name: </label>
     <select name="input-ingredientID" id="input-ingredientID">
         <option value="">Select an Ingredient</option>
         {{#each ingredients}}
@@ -49,7 +46,7 @@
         {{/each}}
     </select>
 
-    <label for="input-ingredientQty">Quantity: </label>
+    <label for="input-ingredientQty">Ingredient Quantity: </label>
     <input type="number" name="input-ingredientQty" id="input-ingredientQty">
 
     <input type="submit">
