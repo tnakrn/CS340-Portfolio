@@ -46,6 +46,7 @@ app.get('/players', function (req, res) {
 // Create player query
 
 
+
 // Read garment sets table query
 app.get('/garmentsets', function (req, res) {
     let query1 = "SELECT * FROM GarmentSets;";
@@ -156,13 +157,75 @@ app.get('/transactions', function (req, res) {
 });
 
 // Create transaction query
+app.post('/add-transaction-form', function(req, res) {
+    let data = req.body;
+    let query1 = `INSERT INTO Transactions (transactionDate, playerID) VALUES ('${data.input-transactionDate}', '${data.input-playerID}');`
+    db.pool.query(query1, function(error, rows, fields) {
+        if (error) {
+            res.sendStatus(400);
+        }
+        else {
+            let query2 = `SELECT * FROM Transactions`;
+            db.pool.query(query2, function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    res.send(rows);
+                }
+            });
+        }
+    });
+});
 
 
 // Update transaction query
+app.put("/update-transaction-form", function(req, res) {
+    let data = req.body;
 
+    let transactionID = data.input-transactionNew;
+    let playerID = data.input-playerIDNew;
+
+    let queryUpdateTransaction = `UPDATE Transactions SET playerID = ? where transactionID = ?`;
+    let selectTransaction = `SELECT * FROM Transactions WEHRE transactionID = ?`
+
+    db.pool.query(queryUpdateTransaction, [transactionID, playerID], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else {
+            db.pool.query(selectTransaction, [transactionID], function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    res.send(rows);
+                }
+            });
+        }
+    });
+    
+});
 
 // Delete transaction query
+app.delete("/delete-transaction", function(req, res, next) {
+    let data = req.body;
+    let transactionID = data.input-transactionID;
+    let deleteFromTransactionsQuery = `DELETE FROM Transactions WHERE transactionID = ?`;
 
+    db.pool.query(deleteFromTransactionsQuery, [input-transactionID], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else {
+            res.sendStatus(204);
+        }
+    });
+});
 
 // Read transaction details table query
 app.get('/transactiondetails', function (req, res) {

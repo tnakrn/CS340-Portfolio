@@ -19,7 +19,7 @@
             <td>{{this.transactionDate}}</td>
             <td>{{this.player}}</td>
             {{!-- Delete a transaction (button in table) --}}
-            <td><button onclick="deleteTransaction({{this.id}})">Delete</button></td>
+            <td><button onclick="deleteTransaction({{this.transactionID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
@@ -60,7 +60,7 @@
 {{!-- Update a transaction CURRENTLY USING AJAX SWITCH TO HTML?--}}
 <h3>Update a Transaction</h3>
 <p>Use the form below to update what player is associated with a transaction:</p>
-<form id="update-transaction-form-ajax">
+<form id="update-transaction-form-ajax", method="PUT" action="/update-transaction-form">
 
     <label for="input-transactionNew">Transaction: </label>
     <select name="input-transactionNew" id="input-transactionNew">
