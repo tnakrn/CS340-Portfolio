@@ -36,7 +36,7 @@ app.get('/', function (req, res) {
 
 // Read players table query
 app.get('/players', function (req, res) {
-    let query1 = "SELECT * FROM Players;";
+    let query1 = "SELECT playerID, userName, firstName, lastName, email, CONCAT(joinDate) AS joinDate FROM Players;";
 
     db.pool.query(query1, function (error, rows, fields) {
 
@@ -138,7 +138,7 @@ app.get('/clothingingredients', function (req, res) {
 // Read transactions table query 
 app.get('/transactions', function (req, res) {
     // Fill table
-    let query1 = 'SELECT transactionID, transactionDate, Players.userName AS player \
+    let query1 = 'SELECT transactionID, CONCAT(transactionDate) AS transactionDate, Players.userName AS player \
     FROM Transactions \
     INNER JOIN Players ON Transactions.playerID = Players.playerID;';
     // To populate drop down
@@ -224,7 +224,7 @@ app.get('/transactiondetails', function (req, res) {
     INNER JOIN Transactions ON TransactionDetails.transactionID = Transactions.transactionID \
     INNER JOIN Ingredients ON TransactionDetails.ingredientID = Ingredients.ingredientID;';
     // To populate drop down for clothing
-    let query2 = 'SELECT transactionID, transactionDate, Players.userName AS player \
+    let query2 = 'SELECT transactionID, CONCAT(transactionDate) AS transactionDate, Players.userName AS player \
     FROM Transactions \
     INNER JOIN Players ON Transactions.playerID = Players.playerID;';
     // To populate drop down for ingredients

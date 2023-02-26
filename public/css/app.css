@@ -1,12 +1,83 @@
-/*  ----- Table ----- */
+/* Fonts */
+@import url(//fonts.googleapis.com/css?family=Bebas+Neue);
+@import url(//fonts.googleapis.com/css?family=Roboto);
+
+/* Colors */
+:root {
+    --custom-red: rgb(184, 18, 18);
+    --custom-yellow: rgb(251, 174, 20);
+    --custom-lightgrey: rgb(242, 242, 242);
+    --custom-medgrey: rgb(188, 188, 188);
+}
+
+/* Main Body */
+body {
+    background-color: var(--custom-red);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    margin: 2.5%;
+    padding: 2.5%;
+}
+
+/* Main Nav */
+nav {
+    text-align: left;
+}
+
+nav a {
+    color: var(--custom-lightgrey);
+    text-decoration: none;
+    font-size: 1.1em;
+    line-height: 1px;
+    vertical-align: center;
+    padding: 4px;
+}
+
+nav a:hover {
+    color: var(--custom-yellow);
+}
+
+/* Headers */
+h1 {
+    color: var(--custom-lightgrey);
+    font-family: 'Bebas Neue', cursive;
+    font-weight: bolder;
+    font-size: 3.2em;
+    margin-bottom: 2px;
+}
+
+h2 {
+    color: var(--custom-lightgrey);
+    margin-bottom: 4px;
+}
+
+h3 {
+    color: var(--custom-lightgrey);
+    margin-bottom: 1px;
+}
+
+p {
+    color: var(--custom-lightgrey);
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+ul {
+    color: var(--custom-lightgrey);
+    margin-bottom: 1px;
+}
+
+/* Tables */
 table {
     border-collapse: collapse;
     width: 50%;
+    background-color: var(--custom-lightgrey);
 }
 
 thead {
     height: 50px;
     text-align: left;
+    background-color: var(--custom-medgrey);
 }
 
 tbody {
@@ -27,6 +98,58 @@ td {
     padding: 5px;
 }
 
-/* tr:nth-child(even) {
-    background-color: grey;
-} */
+tr:nth-child(even) {
+    background-color: var(--custom-medgrey);
+}
+
+/* Form */
+form {
+    background-color: var(--custom-medgrey);
+    border: 1px solid black;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    padding: 5px;
+    width: 50%;
+}
+
+fieldset {
+    margin-top: 20px;
+    border: 1px solid var(--custom-yellow);
+}
+
+label {
+    display: block;
+    margin-top: 1%;
+}
+
+input {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    background-color: var(--custom-lightgrey);
+    border: 1px solid black;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+
+select {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+
+button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    background-color: var(--custom-lightgrey);
+    border: 1px solid black;
+    padding: 5px;
+}
+
+/* Footer */
+footer {
+    color: var(--custom-lightgrey);
+    margin-top: 10px;
+}
