@@ -1,3 +1,48 @@
+{{! 
+<script src="../public/js/delete_transaction.js"></script>
+}}
+<script>
+    function deleteTransaction(transactionID) {
+        // Put transactionID in a JSON object
+        let data = {
+            id: transactionID
+        };
+
+        // Set up the DELETE request
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", "/delete-transaction", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+
+        // Resolve
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState == 4 && xhttp.status == 204) {
+
+                // Remove the data from the table
+                deleteRow(transactionID);
+
+            }
+            else if (xhttp.readyState == 4 && xhttp.status != 204) {
+                console.log("There was an error with the input.")
+            }
+        }
+        // Send the request and wait for the response
+        xhttp.send(JSON.stringify(data));
+    }
+
+
+    function deleteRow(transactionID){
+
+        let table = document.getElementById("transaction-table");
+        for (let i = 0, row; row = table.rows[i]; i++) {
+        // Iterate through rows
+        // Delete row with matching transactionID
+        if (table.rows[i].getAttribute("data-value") == transactionID) {
+                table.deleteRow(i);
+                break;
+        }
+        }
+    }
+</script>
 <h2>Transactions</h2>
 
 {{!-- Table that shows all of the transactions --}}
@@ -19,7 +64,7 @@
             <td>{{this.transactionDate}}</td>
             <td>{{this.player}}</td>
             {{!-- Delete a transaction (button in table) --}}
-            <td><button onclick="deleteTransaction({{this.id}})">Delete</button></td>
+            <td><button onclick="deleteTransaction({{this.transactionID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
@@ -43,11 +88,12 @@
 <p>Enter new transaction information in the form below:</p>
 <form id="add-transaction-form" method="POST" action="/add-transaction-form">
     <label for="input-transactionDate">Date: </label>
-    <input type="text" name="input-transactionDate" id="input-transactionDate">
+    <input type="date" name="inputTransactionDate" id="input-transactionDate"
+        value="1899-04-15" min="1865-01-01" max="1915-12-31">
 
     <label for="input-playerID">Player: </label>
-    <select name="input-playerID" id="input-playerID">
-        <option value="">Select a Player</option>
+    <select name="inputPlayerID" id="input-playerID">
+        {{! -- Commenting this out to prevent no selection -- <option value="">Select a Player</option>}}
         {{#each players}}
         <option value="{{this.playerID}}">{{this.userName}}</option>
         {{/each}}
@@ -57,26 +103,92 @@
 </form>
 
 
-{{!-- Update a transaction CURRENTLY USING AJAX SWITCH TO HTML?--}}
+{{!-- Update a transaction --}}
+
 <h3>Update a Transaction</h3>
 <p>Use the form below to update what player is associated with a transaction:</p>
-<form id="update-transaction-form-ajax">
+<form id="update-transaction-form" onsubmit="updateTransaction(inputTransactionIDNew.value, inputPlayerIDNew.value)">
 
-    <label for="input-transactionNew">Transaction: </label>
-    <select name="input-transactionNew" id="input-transactionNew">
-        <option value="">Select the Transaction</option>
+    <label for="input-transactionIDNew">Transaction: </label>
+    <select name="inputTransactionIDNew" id="input-transactionIDNew">
+        {{! -- Commenting this out to prevent no selection -- <option value="">Select the Transaction</option>}}
         {{#each data}}
         <option value="{{this.transactionID}}">{{this.transactionDate}}, {{this.player}}</option>
         {{/each}}
     </select>
 
     <label for="input-playerIDNew">Player: </label>
-    <select name="input-playerIDNew" id="input-playerIDNew">
-        <option value="">Select a Player</option>
+    <select name="inputPlayerIDNew" id="input-playerIDNew">
+         {{! -- Commenting this out to prevent no selection -- <option value="">Select a Player</option>}}
         {{#each players}}
         <option value="{{this.playerID}}">{{this.userName}}</option>
         {{/each}}
     </select>
+
+    <input type="submit" value="Submit">
+</form>
+
+{{!
+<script src="../public/js//update_transaction.js"></script>
+}}
+
+<script>
+    function updateTransaction(transactionID, playerID){
+        // Put our data we want to send in a javascript object
+        let data = {
+            transactionID: transactionID,
+            playerID: playerID,
+        }
+        
+        // Setup our AJAX request
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("PUT", "/update-transaction", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+
+        // Tell our AJAX request how to resolve
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+                // Add the new data to the table
+                updateRow(xhttp.response, inputTransactionIDValue);
+
+            }
+            else if (xhttp.readyState == 4 && xhttp.status != 200) {
+                console.log("There was an error with the input.")
+            }
+        }
+
+        // Send the request and wait for the response
+        xhttp.send(JSON.stringify(data));
+
+    }
+
+
+    function updateRow(data, transactionID){
+        let parsedData = JSON.parse(data);
+        
+        let table = document.getElementById("transaction-table");
+
+        for (let i = 0, row; row = table.rows[i]; i++) {
+        //iterate through rows
+        //rows would be accessed using the "row" variable assigned in the for loop
+            if (table.rows[i].getAttribute("data-value") == transactionID) {
+
+                    // Get the location of the row where we found the matching transaction ID
+                    let updateRowIndex = table.getElementsByTagName("tr")[i];
+
+                    // Get td of playerID value
+                    let td = updateRowIndex.getElementsByTagName("td")[2];
+
+                    // Reassign playerID to our value we updated to
+                    td.innerHTML = parsedData[1].name; 
+            }
+        }
+    }
+    
+</script>
+
+=======
     <div><input type="submit"></div>
 
-</form>
+

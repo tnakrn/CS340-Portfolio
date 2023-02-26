@@ -7,8 +7,9 @@ var express = require('express');
 var app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(express.static('public'))
 
-PORT = 31596;
+PORT = 31598;
 
 // Database
 var db = require('./database/db-connector');
@@ -44,6 +45,7 @@ app.get('/players', function (req, res) {
 });
 
 // Create player query
+
 
 
 // Read garment sets table query
@@ -156,13 +158,57 @@ app.get('/transactions', function (req, res) {
 });
 
 // Create transaction query
+app.post('/add-transaction-form', function(req, res) {
+    let data = req.body;
+    let query1 = `INSERT INTO Transactions (transactionDate, playerID) VALUES ('${data.inputTransactionDate}', ${data.inputPlayerID})`;
+    db.pool.query(query1, function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else {
+            res.redirect('/transactions');
+        }
+    });
+});
 
-
+ 
 // Update transaction query
+app.put("/update-transaction", function(req, res) {
+    let data = req.body;
 
+    let transactionID = data.transactionID;
+    let playerID = data.playerID;
+
+    let queryUpdateTransaction = `UPDATE Transactions SET playerID = ? where transactionID = ?`;
+
+    db.pool.query(queryUpdateTransaction, [playerID, transactionID], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else {
+            res.redirect('/transactions');
+        }
+    });
+}); 
 
 // Delete transaction query
+app.delete("/delete-transaction", function(req, res, next) {
+    let data = req.body;
+    let transactionID = parseInt(data.id);
+    let deleteFromTransactionsQuery = `DELETE FROM Transactions WHERE transactionID = ?`;
 
+    db.pool.query(deleteFromTransactionsQuery, [transactionID], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } 
+        else {
+            res.sendStatus(204); 
+        }
+    });
+});  
 
 // Read transaction details table query
 app.get('/transactiondetails', function (req, res) {
