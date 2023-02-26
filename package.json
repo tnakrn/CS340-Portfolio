@@ -4,7 +4,8 @@
   "description": "CS340 Project Group 55",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "author": "Christine Kuran & Alden Chico",
   "license": "ISC",
@@ -13,6 +14,7 @@
     "express-handlebars": "^6.0.7",
     "forever": "^4.0.3",
     "handlebars-helpers": "^0.10.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.20"
   }
 }
