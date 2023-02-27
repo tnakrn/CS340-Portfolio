@@ -14,7 +14,7 @@
     <tbody>
         {{!-- For each row, print attributes in order --}}
         {{#each data}}
-        <tr>
+        <tr data-value={{this.garmentID}}>
             <td>{{this.garmentID}}</td>
             <td>{{this.garmentName}}</td>
             <td>{{this.garmentDescription}}</td>
@@ -39,12 +39,87 @@
 {{!-- Create a new garment set --}}
 <h3>Add New Garment Set</h3>
 <p>Enter new garment set information in the form below:</p>
-<form id="add-garmentset-form" method="POST" action="/add-garmentset-form">
+
+<form id="add-garmentset-form" onsubmit="addGarmentSet(inputGarmentName.value, inputGarmentDescription.value)">
     <label for="input-garmentName">Name: </label>
-    <input type="text" name="input-garmentName" id="input-garmentName">
+    <input type="text" name="inputGarmentName" id="input-garmentName">
 
     <label for="input-garmentDescription">Description: </label>
-    <input type="text" name="input-garmentDescription" id="input-garmentDescription">
+    <input type="text" name="inputGarmentDescription" id="input-garmentDescription">
 
-    <div><input type="submit"></div>
+    <div><input type="submit" value="Submit"></div>
 </form>
+
+{{! ADD GARMENT SET JAVASCRIPT CODE }}
+
+{{!
+<script src="../public/js/garment_sets_js/add_garment_set.js" type="text/javascript"></script>
+}}
+
+<script>
+    // Prevent default action for submitting add garment set
+    let addGarmentSetForm = document.getElementById("add-garmentset-form");
+    addGarmentSetForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+    });
+
+    function addGarmentSet(garmentName, garmentDescription) {
+        // Put our data we want to send in a javascript object
+        let data = {
+            inputGarmentName: garmentName,
+            inputGarmentDescription: garmentDescription
+        }
+        
+        // Setup our AJAX request
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/add-garment-set-form", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+
+        // Tell our AJAX request how to resolve
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+                // Add the new data to the table
+                addRowToTable(xhttp.response);
+            }
+            else if (xhttp.readyState == 4 && xhttp.status != 200) {
+                console.log("There was an error with the input.")
+            }
+        }
+        // Send the request and wait for the response
+        xhttp.send(JSON.stringify(data));
+    }
+
+    // Creates a single row in the transactions table
+    function addRowToTable(data) {
+
+        // Get a reference to the current table on the page and clear it out.
+        let currentTable = document.getElementById("garmentsets-table");
+
+        // Get a reference to the new row from the database query (last object)
+        let parsedData = JSON.parse(data);
+        let newRowData = parsedData[parsedData.length - 1]
+
+        // Create a row and 4 cells
+        let row = document.createElement("TR");
+        let garmentIDInt = parseInt(newRowData.garmentID);
+        row.setAttribute("data-value", `${garmentIDInt}`);
+        let idCell = document.createElement("TD");
+        let garmentNameCell = document.createElement("TD");
+        let garmentDescriptionCell = document.createElement("TD");
+
+        // Fill the cells with correct data
+        idCell.innerText = newRowData.garmentID;
+        garmentNameCell.innerText = newRowData.garmentName;
+        garmentDescriptionCell.innerText = newRowData.garmentDescription;
+
+        // Add the cells to the row 
+        row.appendChild(idCell);
+        row.appendChild(garmentNameCell);
+        row.appendChild(garmentDescriptionCell);
+        
+        // Add the row to the table
+        currentTable.appendChild(row);
+
+    }
+</script>

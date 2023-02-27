@@ -27,14 +27,15 @@ function deleteTransaction(transactionID) {
 
 
 function deleteRow(transactionID){
-
     let table = document.getElementById("transaction-table");
-    for (let i = 0, row; row = table.rows[i]; i++) {
-       // Iterate through rows
-       // Delete row with matching transactionID
-       if (table.rows[i].getAttribute("data-value") == transactionID) {
-            table.deleteRow(i);
-            break;
-       }
+    let selectTransaction = document.getElementById("input-transactionIDNew");
+    for (let i = 0; row = table.rows[i]; i++) {
+    // Iterate through rows
+    // Delete row with matching transactionID
+        if (table.rows[i].getAttribute("data-value") == transactionID) {
+                table.deleteRow(i);
+                selectTransaction.removeChild(selectTransaction.children[i-1]);
+                break;
+        }
     }
 }

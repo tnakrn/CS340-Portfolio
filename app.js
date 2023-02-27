@@ -59,7 +59,29 @@ app.get('/garmentsets', function (req, res) {
 });
 
 // Create garment set query
-
+app.post('/add-garment-set-form', function(req, res) {
+    let data = req.body;
+    let query1 = `INSERT INTO GarmentSets (garmentName, garmentDescription) \
+                    VALUES ('${data.inputGarmentName}', '${data.inputGarmentDescription}')`
+    db.pool.query(query1, function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else {
+            let query2 = 'SELECT garmentID, garmentName, garmentDescription FROM GarmentSets';
+            db.pool.query(query2, function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    res.send(rows);
+                }
+            })
+        }
+    });
+});
 
 // Read clothing items table query 
 app.get('/clothingitems', function (req, res) {
@@ -167,7 +189,18 @@ app.post('/add-transaction-form', function(req, res) {
             res.sendStatus(400);
         }
         else {
-            res.redirect('/transactions');
+            let query2 = 'SELECT transactionID, CONCAT(transactionDate) AS transactionDate, Players.userName AS player \
+                            FROM Transactions \
+                            INNER JOIN Players ON Transactions.playerID = Players.playerID;';
+            db.pool.query(query2, function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    res.send(rows);
+                }
+            })
         }
     });
 });
@@ -188,7 +221,19 @@ app.put("/update-transaction", function(req, res) {
             res.sendStatus(400);
         }
         else {
-            res.redirect('/transactions');
+            let query2 = 'SELECT transactionID, CONCAT(transactionDate) AS transactionDate, Players.userName AS player \
+                            FROM Transactions \
+                            INNER JOIN Players ON Transactions.playerID = Players.playerID';
+            db.pool.query(query2, [transactionID], function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    //console.log(rows);
+                    res.send(rows);
+                }
+            })
         }
     });
 }); 
