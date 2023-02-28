@@ -12,13 +12,12 @@ function deleteTransaction(transactionID) {
     // Resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
-
             // Remove the data from the table
             deleteRow(transactionID);
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
-            console.log("There was an error with the input.")
+            alert("There was an error with the input.")
         }
     }
     // Send the request and wait for the response

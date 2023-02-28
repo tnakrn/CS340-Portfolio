@@ -11,20 +11,19 @@ function addTransaction(transactionDate, playerID) {
         inputPlayerID: playerID
     }
     
-    // Setup our AJAX request
+    // Setup our request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-transaction-form", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Tell our AJAX request how to resolve
+    // Tell our request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-
             // Add the new data to the table
             addRowToTable(xhttp.response);
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
-            console.log("There was an error with the input.")
+            alert("There was an error with the input.")
         }
     }
     // Send the request and wait for the response
@@ -39,10 +38,10 @@ function addRowToTable(data) {
 
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
-    let newRow = parsedData[parsedData.length - 1]
+    let newRowData = parsedData[parsedData.length - 1]
 
-    // Create a row and 4 cells'
-    let transactionIDInt = parseInt(newRow.transactionID);
+    // Create a row and 4 cells
+    let transactionIDInt = parseInt(newRowData.transactionID);
     let row = document.createElement("TR");
     row.setAttribute("data-value", `${transactionIDInt}`);
     let idCell = document.createElement("TD");
@@ -51,9 +50,9 @@ function addRowToTable(data) {
     let deleteCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    idCell.innerText = newRow.transactionID;
-    transactionDateCell.innerText = newRow.transactionDate;
-    playerCell.innerText = newRow.player;
+    idCell.innerText = newRowData.transactionID;
+    transactionDateCell.innerText = newRowData.transactionDate;
+    playerCell.innerText = newRowData.player;
     deleteCell.innerHTML = `<button onclick='deleteTransaction(${transactionIDInt})'>Delete</button>`
 
     // Add the cells to the row 
@@ -69,7 +68,7 @@ function addRowToTable(data) {
     let selectTransaction = document.getElementById("input-transactionIDNew");
     let newOption = document.createElement("OPTION");
     newOption.setAttribute("value", `${transactionIDInt}`);
-    let newOptionText = document.createTextNode(`${newRow.transactionDate}, ${newRow.player}`);
+    let newOptionText = document.createTextNode(`${newRowData.transactionDate}, ${newRowData.player}`);
     newOption.appendChild(newOptionText);
     selectTransaction.appendChild(newOption);
 

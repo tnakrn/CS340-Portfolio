@@ -11,20 +11,23 @@ function addGarmentSet(garmentName, garmentDescription) {
         inputGarmentDescription: garmentDescription
     }
     
-    // Setup our AJAX request
+    // Setup our request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-garment-set-form", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Tell our AJAX request how to resolve
+    // Tell our request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-
             // Add the new data to the table
             addRowToTable(xhttp.response);
         }
+        else if (xhttp.status == 401) {
+            // Show an alert if the user tries to enter a non-unique Garment Set name
+            alert("Please submit a unique Garment Set name.");
+        }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
-            console.log("There was an error with the input.")
+            alert("There was an error with the input.");
         }
     }
     // Send the request and wait for the response
@@ -41,7 +44,7 @@ function addRowToTable(data) {
     let parsedData = JSON.parse(data);
     let newRowData = parsedData[parsedData.length - 1]
 
-    // Create a row and 4 cells
+    // Create a row and cells
     let row = document.createElement("TR");
     let garmentIDInt = parseInt(newRowData.garmentID);
     row.setAttribute("data-value", `${garmentIDInt}`);

@@ -65,8 +65,13 @@ app.post('/add-garment-set-form', function(req, res) {
                     VALUES ('${data.inputGarmentName}', '${data.inputGarmentDescription}')`
     db.pool.query(query1, function(error, rows, fields) {
         if (error) {
-            console.log(error);
-            res.sendStatus(400);
+            if (error.code === 'ER_DUP_ENTRY') {
+                res.sendStatus(401);
+            }
+            else {
+                console.log(error);
+                res.sendStatus(400);
+            }
         }
         else {
             let query2 = 'SELECT garmentID, garmentName, garmentDescription FROM GarmentSets';
