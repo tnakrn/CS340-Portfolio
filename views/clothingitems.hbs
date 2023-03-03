@@ -15,7 +15,7 @@
     <tbody>
         {{!-- For each row, print attributes in order --}}
         {{#each data}}
-        <tr>
+        <tr data-value={{this.clothingID}}>
             <td>{{this.clothingID}}</td>
             <td>{{this.clothingName}}</td>
             <td>{{this.clothingDescription}}</td>
@@ -41,17 +41,17 @@
 {{!-- Create a new clothing item --}}
 <h3>Add New Clothing Item</h3>
 <p>Enter new clothing item information in the form below:</p>
-<form id="add-clothingitem-form" method="POST" action="/add-clothingitem-form">
+<form id="add-clothingitem-form" onsubmit="addClothingItem(inputClothingName.value, inputClothingDescription.value, inputGarmentID.value)">
     <label for="input-clothingName">Name: </label>
-    <input type="text" name="input-clothingName" id="input-clothingName">
+    <input type="text" name="inputClothingName" id="input-clothingName">
 
     <label for="input-clothingDescription">Description: </label>
-    <input type="text" name="input-clothingDescription" id="input-clothingDescription">
+    <input type="text" name="inputClothingDescription" id="input-clothingDescription">
 
     <label for="input-garmentID">Associated Garment Set: </label>
-    <select name="input-garmentID" id="input-garmentID">
-        <option value="">Select a Garment Set</option>
-        {{#each garments}}
+    <select name="inputGarmentID" id="input-garmentID">
+        {{! <option value="">Select a Garment Set</option> }}
+        {{#each garments}} 
         <option value="{{this.garmentID}}">{{this.garmentName}}</option>
         {{/each}}
     </select>
@@ -63,22 +63,22 @@
 {{!-- Update a clothing items CURRENTLY AJAX SETUP BUT WE CAN DO HTML POST--}}
 <h3>Update a Clothing Item</h3>
 <p>Use the form below to update information for a clothing item:</p>
-<form id="update-transaction-form-ajax">
+<form id="update-clothing-item-form" onsubmit="updateClothingItem(inputClothingIDNew.value, inputClothingDescriptionNew.value, inputGarmentIDNew.value)">
 
     <label for="input-clothingNameNew">Name: </label>
-    <select name="input-clothingNameNew" id="input-clothingNameNew">
-        <option value="">Select the Clothing Name</option>
+    <select name="inputClothingIDNew" id="input-clothingNameNew">
+        {{! <option value="">Select the Clothing Name</option> }}
         {{#each data}}
         <option value="{{this.clothingID}}">{{this.clothingName}}</option>
         {{/each}}
     </select>
 
     <label for="input-clothingDescriptionNew">Description: </label>
-    <input type="text" name="input-clothingDescriptionNew" id="input-clothingDescriptionNew">
+    <input type="text" name="inputClothingDescriptionNew" id="input-clothingDescriptionNew">
 
     <label for="input-garmentIDNew">Associated Garment Set: </label>
-    <select name="input-garmentIDNew" id="input-garmentIDNew">
-        <option value="">Select a Garment Set</option>
+    <select name="inputGarmentIDNew" id="input-garmentIDNew">
+        {{! <option value="">Select a Garment Set</option> }}
         {{#each garments}}
         <option value="{{this.garmentID}}">{{this.garmentName}}</option>
         {{/each}}
@@ -86,3 +86,9 @@
     <div><input type="submit"></div>
 
 </form>
+
+{{! ADD CLOTHING ITEM JAVASCRIPT }}
+<script src="./js/clothing_items_js/add_clothing_item.js" type="text/javascript"></script>
+
+{{! UPDATE CLOTHING ITEM JAVASCRIPT }}
+<script src="./js/clothing_items_js/update_clothing_item.js" type="text/javascript"></script>

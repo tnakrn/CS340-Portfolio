@@ -112,9 +112,64 @@ app.get('/clothingitems', function (req, res) {
 
 
 // Create clothing item query
-
+app.post('/add-clothing-item-form', function(req, res) {
+    let data = req.body;
+    let query1 = `INSERT INTO ClothingItems (clothingName, clothingDescription, garmentID) VALUES ('${data.inputClothingName}', '${data.inputClothingDescription}', ${data.inputGarmentID})`;
+    db.pool.query(query1, function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else {
+            let query2 = 'SELECT clothingID, clothingName, clothingDescription, GarmentSets.garmentName AS garmentName \
+                            FROM ClothingItems \
+                            INNER JOIN GarmentSets ON ClothingItems.garmentID = GarmentSets.garmentID;';
+            db.pool.query(query2, function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    res.send(rows);
+                }
+            })
+        }
+    });
+});
 
 // Update clothing item (NEED TO HAVE A FUNCTION TO UPDATE FK TO NULL)
+app.put("/update-clothing-item", function(req, res) {
+    let data = req.body;
+
+    let clothingID = data.clothingID;
+    let clothingDescription = data.clothingDescription;
+    let garmentID = data.garmentID
+
+    let queryUpdateClothingItem = `UPDATE ClothingItems SET clothingDescription = ?, garmentID = ? \ 
+                                    WHERE clothingID = ?`;
+
+    db.pool.query(queryUpdateClothingItem, [clothingDescription, garmentID, clothingID], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else {
+            let query2 = 'SELECT clothingID, clothingName, clothingDescription, GarmentSets.garmentName AS garmentName \
+                            FROM ClothingItems \
+                            INNER JOIN GarmentSets ON ClothingItems.garmentID = GarmentSets.garmentID;';
+            db.pool.query(query2, function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    //console.log(rows);
+                    res.send(rows);
+                }
+            })
+        }
+    });
+}); 
 
 
 // Read ingredients table query
