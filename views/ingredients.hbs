@@ -23,28 +23,18 @@
     </tbody>
 </table>
 
-
-{{!-- Search for an ingredient --}}
-{{!-- <h3>Search for an Ingredient</h3>
-<p>Search by entering a ingredient name in the form below:</p>
-<form id="search-ingredient-html" method='GET' action='/ingredients'>
-    <label for="input-ingredientName">Search by Ingredient Name: </label>
-    <input type="text" name="ingredientName" id="input-ingredientName-html-search">
-
-    <input type="submit">
-    <a href='/'><button>Reset</button></a>
-</form> --}}
-
-
 {{!-- Create a new ingredient --}}
 <h3>Add New Ingredient</h3>
 <p>Enter new ingredient information in the form below:</p>
-<form id="add-ingredient-form" method="POST" action="/add-ingredient-form">
+<form id="add-ingredient-form" onsubmit="addIngredient(inputIngredientName.value, inputIngredientDescription.value)">
     <label for="input-ingredientName">Name: </label>
-    <input type="text" name="input-ingredientName" id="input-ingredientName">
+    <input type="text" name="inputIngredientName" id="input-ingredientName" required>
 
     <label for="input-ingredientDescription">Description: </label>
-    <input type="text" name="input-ingredientDescription" id="input-ingredientDescription">
+    <input type="text" name="inputIngredientDescription" id="input-ingredientDescription">
 
-    <div><input type="submit"></div>
+    <div><input type="submit" value="Submit"></div>
 </form>
+
+{{! ADD INGREDIENT JAVASCRIPT CODE }}
+<script src="./js/ingredients_js/add_ingredient.js" type="text/javascript"></script>
