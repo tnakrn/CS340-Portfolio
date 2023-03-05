@@ -33,21 +33,25 @@
 {{!-- Create a new player --}}
 <h3>Add New Player</h3>
 <p>Enter new player information in the form below:</p>
-<form id="add-player-form" method="POST" action="/add-player-form">
+<form id="add-player-form"
+    onsubmit="addPlayer(inputUserName.value, inputFirstName.value, inputLastName.value, inputEmail.value, inputJoinDate.value)">
     <label for="input-userName">User Name: </label>
-    <input type="text" name="input-userName" id="input-userName">
+    <input type="text" name="inputUserName" id="input-userName" required>
 
     <label for="input-firstName">First Name: </label>
-    <input type="text" name="input-firstName" id="input-firstName">
+    <input type="text" name="inputFirstName" id="input-firstName" required>
 
     <label for="input-lastName">Last Name: </label>
-    <input type="text" name="input-lastName" id="input-lastName">
+    <input type="text" name="inputLastName" id="input-lastName" required>
 
     <label for="input-email">Email: </label>
-    <input type="text" name="input-email" id="input-email">
+    <input type="text" name="inputEmail" id="input-email" required>
 
     <label for="input-joinDate">Join Date: </label>
-    <input type="date" name="input-joinDate" id="input-joinDate">
+    <input type="date" name="inputJoinDate" id="input-joinDate" required>
 
     <div><input type="submit"></div>
 </form>
+
+{{! ADD PLAYER JAVASCRIPT CODE }}
+<script src="./js/players_js/add_player.js" type="text/javascript"></script>
