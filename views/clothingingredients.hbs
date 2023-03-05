@@ -15,7 +15,7 @@
     <tbody>
         {{!-- For each row, print attributes in order --}}
         {{#each data}}
-        <tr>
+        <tr  data-value={{this.clothingIngredientsID}}>
             <td>{{this.clothingIngredientsID}}</td>
             <td>{{this.clothingName}}</td>
             <td>{{this.ingredientName}}</td>
@@ -27,11 +27,11 @@
 
 
 {{!-- Create a new clothing-ingredient --}}
-<h3>Add New Clothing-Ingredient</h3>
-<p>Enter new clothing-ingredient information in the form below:</p>
-<form id="add-clothingingredient-form" method="POST" action="/add-clothingingredient-form">
+<h3>Add New Clothing Ingredient</h3>
+<p>Associate an ingredient to a clothing item using the form below:</p>
+<form id="add-clothingingredient-form" onsubmit="addClothingIngredient(inputClothingID.value, inputIngredientID.value, inputIngredientQty.value)">
     <label for="input-clothingID">Clothing Name: </label>
-    <select name="input-clothingID" id="input-clothingID">
+    <select name="inputClothingID" id="input-clothingID">
         <option value="">Select a Clothing Item</option>
         {{#each clothingitems}}
         <option value="{{this.clothingID}}">{{this.clothingName}}</option>
@@ -39,7 +39,7 @@
     </select>
 
     <label for="input-ingredientID">Ingredient Name: </label>
-    <select name="input-ingredientID" id="input-ingredientID">
+    <select name="inputIngredientID" id="input-ingredientID">
         <option value="">Select an Ingredient</option>
         {{#each ingredients}}
         <option value="{{this.ingredientID}}">{{this.ingredientName}}</option>
@@ -47,7 +47,10 @@
     </select>
 
     <label for="input-ingredientQty">Ingredient Quantity: </label>
-    <input type="number" name="input-ingredientQty" id="input-ingredientQty">
+    <input type="number" name="inputIngredientQty" id="input-ingredientQty">
 
     <div><input type="submit"></div>
 </form>
+
+{{! ADD CLOTHING INGREDIENT JAVASCRIPT }}
+<script src="./js/clothing_ingredients_js/add_clothing_ingredient.js" type="text/javascript"></script>
