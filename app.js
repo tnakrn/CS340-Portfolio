@@ -273,7 +273,31 @@ app.get('/clothingingredients', function (req, res) {
 
 
 // Create clothing ingredient query
-
+app.post('/add-clothing-ingredient-form', function(req, res) {
+    let data = req.body;
+    let query1 = `INSERT INTO ClothingIngredients (clothingID, ingredientID, ingredientQty) VALUES (${data.inputClothingID}, ${data.inputIngredientID}, ${data.inputIngredientQty})`;
+    db.pool.query(query1, function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else {
+            let query2 = 'SELECT clothingIngredientsID, ClothingItems.clothingName AS clothingName, Ingredients.ingredientName AS ingredientName, ingredientQty \
+                            FROM ClothingIngredients \
+                            INNER JOIN ClothingItems ON ClothingIngredients.clothingID = ClothingItems.clothingID \
+                            INNER JOIN Ingredients ON ClothingIngredients.ingredientID = Ingredients.ingredientID;';
+            db.pool.query(query2, function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    res.send(rows);
+                }
+            })
+        }
+    });
+});
 
 // Read transactions table query 
 app.get('/transactions', function (req, res) {
@@ -412,7 +436,38 @@ app.get('/transactiondetails', function (req, res) {
 });
 
 // Create transaction detail query
-
+app.post('/add-transaction-details-form', function(req, res) {
+    let data = req.body;
+    let query1 = `INSERT INTO TransactionDetails (transactionID, ingredientID, ingredientQty) VALUES \ 
+                    (${data.inputTransactionID}, ${data.inputIngredientID}, ${data.inputIngredientQty})`;
+    db.pool.query(query1, function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else {
+            let query2 = 'SELECT TransactionDetails.transactionDetailsID, CONCAT(Transactions.transactionDate, ", ", subquery1.userName) AS transactionDetails, Ingredients.ingredientName, TransactionDetails.ingredientQty \
+                            FROM \
+                            ( \
+                                SELECT transactionID, Players.userName \
+                                FROM Transactions \
+                                INNER JOIN Players ON Transactions.playerID = Players.playerID \
+                            ) AS subquery1 \
+                            INNER JOIN TransactionDetails ON subquery1.transactionID = TransactionDetails.transactionID \
+                            INNER JOIN Transactions ON TransactionDetails.transactionID = Transactions.transactionID \
+                            INNER JOIN Ingredients ON TransactionDetails.ingredientID = Ingredients.ingredientID;';
+            db.pool.query(query2, function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    res.send(rows);
+                }
+            })
+        }
+    });
+});
 
 /*
     LISTENER
