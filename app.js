@@ -45,8 +45,34 @@ app.get('/players', function (req, res) {
 });
 
 // Create player query
-
-
+app.post('/add-player-form', function (req, res) {
+    let data = req.body;
+    let query1 = `INSERT INTO Players (userName, firstName, lastName, email, joinDate) \
+                    VALUES ('${data.inputUserName}', '${data.inputFirstName}', '${data.inputLastName}', '${data.inputEmail}', '${data.inputJoinDate}')`
+    db.pool.query(query1, function (error, rows, fields) {
+        if (error) {
+            if (error.code === 'ER_DUP_ENTRY') {
+                res.sendStatus(401);
+            }
+            else {
+                console.log(error);
+                res.sendStatus(400);
+            }
+        }
+        else {
+            let query2 = 'SELECT playerID, userName, firstName, lastName, email, CONCAT(joinDate) AS joinDate FROM Players;';
+            db.pool.query(query2, function (error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    res.send(rows);
+                }
+            })
+        }
+    });
+});
 
 // Read garment sets table query
 app.get('/garmentsets', function (req, res) {
@@ -59,11 +85,11 @@ app.get('/garmentsets', function (req, res) {
 });
 
 // Create garment set query
-app.post('/add-garment-set-form', function(req, res) {
+app.post('/add-garment-set-form', function (req, res) {
     let data = req.body;
     let query1 = `INSERT INTO GarmentSets (garmentName, garmentDescription) \
                     VALUES ('${data.inputGarmentName}', '${data.inputGarmentDescription}')`
-    db.pool.query(query1, function(error, rows, fields) {
+    db.pool.query(query1, function (error, rows, fields) {
         if (error) {
             if (error.code === 'ER_DUP_ENTRY') {
                 res.sendStatus(401);
@@ -75,7 +101,7 @@ app.post('/add-garment-set-form', function(req, res) {
         }
         else {
             let query2 = 'SELECT garmentID, garmentName, garmentDescription FROM GarmentSets';
-            db.pool.query(query2, function(error, rows, fields) {
+            db.pool.query(query2, function (error, rows, fields) {
                 if (error) {
                     console.log(error);
                     res.sendStatus(400);
@@ -112,10 +138,10 @@ app.get('/clothingitems', function (req, res) {
 
 
 // Create clothing item query
-app.post('/add-clothing-item-form', function(req, res) {
+app.post('/add-clothing-item-form', function (req, res) {
     let data = req.body;
     let query1 = `INSERT INTO ClothingItems (clothingName, clothingDescription, garmentID) VALUES ('${data.inputClothingName}', '${data.inputClothingDescription}', ${data.inputGarmentID})`;
-    db.pool.query(query1, function(error, rows, fields) {
+    db.pool.query(query1, function (error, rows, fields) {
         if (error) {
             console.log(error);
             res.sendStatus(400);
@@ -124,7 +150,7 @@ app.post('/add-clothing-item-form', function(req, res) {
             let query2 = 'SELECT clothingID, clothingName, clothingDescription, GarmentSets.garmentName AS garmentName \
                             FROM ClothingItems \
                             INNER JOIN GarmentSets ON ClothingItems.garmentID = GarmentSets.garmentID;';
-            db.pool.query(query2, function(error, rows, fields) {
+            db.pool.query(query2, function (error, rows, fields) {
                 if (error) {
                     console.log(error);
                     res.sendStatus(400);
@@ -138,7 +164,7 @@ app.post('/add-clothing-item-form', function(req, res) {
 });
 
 // Update clothing item (NEED TO HAVE A FUNCTION TO UPDATE FK TO NULL)
-app.put("/update-clothing-item", function(req, res) {
+app.put("/update-clothing-item", function (req, res) {
     let data = req.body;
 
     let clothingID = data.clothingID;
@@ -148,7 +174,7 @@ app.put("/update-clothing-item", function(req, res) {
     let queryUpdateClothingItem = `UPDATE ClothingItems SET clothingDescription = ?, garmentID = ? \ 
                                     WHERE clothingID = ?`;
 
-    db.pool.query(queryUpdateClothingItem, [clothingDescription, garmentID, clothingID], function(error, rows, fields) {
+    db.pool.query(queryUpdateClothingItem, [clothingDescription, garmentID, clothingID], function (error, rows, fields) {
         if (error) {
             console.log(error);
             res.sendStatus(400);
@@ -157,7 +183,7 @@ app.put("/update-clothing-item", function(req, res) {
             let query2 = 'SELECT clothingID, clothingName, clothingDescription, GarmentSets.garmentName AS garmentName \
                             FROM ClothingItems \
                             INNER JOIN GarmentSets ON ClothingItems.garmentID = GarmentSets.garmentID;';
-            db.pool.query(query2, function(error, rows, fields) {
+            db.pool.query(query2, function (error, rows, fields) {
                 if (error) {
                     console.log(error);
                     res.sendStatus(400);
@@ -169,7 +195,7 @@ app.put("/update-clothing-item", function(req, res) {
             })
         }
     });
-}); 
+});
 
 
 // Read ingredients table query
@@ -181,6 +207,38 @@ app.get('/ingredients', function (req, res) {
         res.render('ingredients', { data: rows });
     })
 });
+
+
+// Create ingredient query
+app.post('/add-ingredient-form', function (req, res) {
+    let data = req.body;
+    let query1 = `INSERT INTO Ingredients (ingredientName, ingredientDescription) \
+                    VALUES ('${data.inputIngredientName}', '${data.inputIngredientDescription}')`
+    db.pool.query(query1, function (error, rows, fields) {
+        if (error) {
+            if (error.code === 'ER_DUP_ENTRY') {
+                res.sendStatus(401);
+            }
+            else {
+                console.log(error);
+                res.sendStatus(400);
+            }
+        }
+        else {
+            let query2 = 'SELECT ingredientID, ingredientName, ingredientDescription FROM Ingredients';
+            db.pool.query(query2, function (error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else {
+                    res.send(rows);
+                }
+            })
+        }
+    });
+});
+
 
 // Read clothing ingredients table query
 app.get('/clothingingredients', function (req, res) {
@@ -240,10 +298,10 @@ app.get('/transactions', function (req, res) {
 });
 
 // Create transaction query
-app.post('/add-transaction-form', function(req, res) {
+app.post('/add-transaction-form', function (req, res) {
     let data = req.body;
     let query1 = `INSERT INTO Transactions (transactionDate, playerID) VALUES ('${data.inputTransactionDate}', ${data.inputPlayerID})`;
-    db.pool.query(query1, function(error, rows, fields) {
+    db.pool.query(query1, function (error, rows, fields) {
         if (error) {
             console.log(error);
             res.sendStatus(400);
@@ -252,7 +310,7 @@ app.post('/add-transaction-form', function(req, res) {
             let query2 = 'SELECT transactionID, CONCAT(transactionDate) AS transactionDate, Players.userName AS player \
                             FROM Transactions \
                             INNER JOIN Players ON Transactions.playerID = Players.playerID;';
-            db.pool.query(query2, function(error, rows, fields) {
+            db.pool.query(query2, function (error, rows, fields) {
                 if (error) {
                     console.log(error);
                     res.sendStatus(400);
@@ -265,9 +323,9 @@ app.post('/add-transaction-form', function(req, res) {
     });
 });
 
- 
+
 // Update transaction query
-app.put("/update-transaction", function(req, res) {
+app.put("/update-transaction", function (req, res) {
     let data = req.body;
 
     let transactionID = data.transactionID;
@@ -275,7 +333,7 @@ app.put("/update-transaction", function(req, res) {
 
     let queryUpdateTransaction = `UPDATE Transactions SET playerID = ? where transactionID = ?`;
 
-    db.pool.query(queryUpdateTransaction, [playerID, transactionID], function(error, rows, fields) {
+    db.pool.query(queryUpdateTransaction, [playerID, transactionID], function (error, rows, fields) {
         if (error) {
             console.log(error);
             res.sendStatus(400);
@@ -284,7 +342,7 @@ app.put("/update-transaction", function(req, res) {
             let query2 = 'SELECT transactionID, CONCAT(transactionDate) AS transactionDate, Players.userName AS player \
                             FROM Transactions \
                             INNER JOIN Players ON Transactions.playerID = Players.playerID';
-            db.pool.query(query2, [transactionID], function(error, rows, fields) {
+            db.pool.query(query2, [transactionID], function (error, rows, fields) {
                 if (error) {
                     console.log(error);
                     res.sendStatus(400);
@@ -296,24 +354,24 @@ app.put("/update-transaction", function(req, res) {
             })
         }
     });
-}); 
+});
 
 // Delete transaction query
-app.delete("/delete-transaction", function(req, res, next) {
+app.delete("/delete-transaction", function (req, res, next) {
     let data = req.body;
     let transactionID = parseInt(data.id);
     let deleteFromTransactionsQuery = `DELETE FROM Transactions WHERE transactionID = ?`;
 
-    db.pool.query(deleteFromTransactionsQuery, [transactionID], function(error, rows, fields) {
+    db.pool.query(deleteFromTransactionsQuery, [transactionID], function (error, rows, fields) {
         if (error) {
             console.log(error);
             res.sendStatus(400);
-        } 
+        }
         else {
-            res.sendStatus(204); 
+            res.sendStatus(204);
         }
     });
-});  
+});
 
 // Read transaction details table query
 app.get('/transactiondetails', function (req, res) {
