@@ -23,26 +23,13 @@
     </tbody>
 </table>
 
-
-{{!-- Search for a garment set --}}
-{{!-- <h3>Search for a Garment Set</h3>
-<p>Search by entering a garment set name in the form below:</p>
-<form id="search-garmentset-html" method='GET' action='/garmentsets'>
-    <label for="input-garmentName">Search by Garment Set Name: </label>
-    <input type="text" name="garmentName" id="input-garmentName-html-search">
-
-    <input type="submit">
-    <a href='/'><button>Reset</button></a>
-</form> --}}
-
-
 {{!-- Create a new garment set --}}
 <h3>Add New Garment Set</h3>
 <p>Enter new garment set information in the form below:</p>
 
 <form id="add-garmentset-form" onsubmit="addGarmentSet(inputGarmentName.value, inputGarmentDescription.value)">
     <label for="input-garmentName">Name: </label>
-    <input type="text" name="inputGarmentName" id="input-garmentName">
+    <input type="text" name="inputGarmentName" id="input-garmentName" required>
 
     <label for="input-garmentDescription">Description: </label>
     <input type="text" name="inputGarmentDescription" id="input-garmentDescription">

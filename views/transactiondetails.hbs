@@ -29,10 +29,11 @@
 {{!-- Create a new transaction detail --}}
 <h3>Add New Transaction Detail</h3>
 <p>Enter the ingredient and ingredient quantity details from a transaction using the form below:</p>
-<form id="add-transactiondetail-form" onsubmit="addTransactionDetails(inputTransactionID.value, inputIngredientID.value, inputIngredientQty.value)">
+<form id="add-transactiondetail-form"
+    onsubmit="addTransactionDetails(inputTransactionID.value, inputIngredientID.value, inputIngredientQty.value)">
     <label for="input-transactionID">Transaction: </label>
     <select name="inputTransactionID" id="input-transactionID">
-        <option value="">Select a Transaction</option>
+        {{!-- <option value="">Select a Transaction</option> --}}
         {{#each transactions}}
         <option value="{{this.transactionID}}">{{this.transactionDate}}, {{this.player}}</option>
         {{/each}}
@@ -40,14 +41,14 @@
 
     <label for="input-ingredientID">Ingredient Name: </label>
     <select name="inputIngredientID" id="input-ingredientID">
-        <option value="">Select an Ingredient</option>
+        {{!-- <option value="">Select an Ingredient</option> --}}
         {{#each ingredients}}
         <option value="{{this.ingredientID}}">{{this.ingredientName}}</option>
         {{/each}}
     </select>
 
     <label for="input-ingredientQty">Ingredient Quantity: </label>
-    <input type="number" name="inputIngredientQty" id="input-ingredientQty">
+    <input type="number" name="inputIngredientQty" id="input-ingredientQty" value="1" min="1">
 
     <div><input type="submit"></div>
 </form>

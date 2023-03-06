@@ -25,25 +25,13 @@
     </tbody>
 </table>
 
-
-{{!-- Search for a clothing item --}}
-{{!-- <h3>Search for a Clothing Item</h3>
-<p>Search by entering a clothing item name in the form below:</p>
-<form id="search-clothingitem-html" method='GET' action='/clothingitems'>
-    <label for="input-clothingName">Search by Clothing Item Name: </label>
-    <input type="text" name="clothingName" id="input-clothingName-html-search">
-
-    <input type="submit">
-    <a href='/'><button>Reset</button></a>
-</form> --}}
-
-
 {{!-- Create a new clothing item --}}
 <h3>Add New Clothing Item</h3>
 <p>Enter new clothing item information in the form below:</p>
-<form id="add-clothingitem-form" onsubmit="addClothingItem(inputClothingName.value, inputClothingDescription.value, inputGarmentID.value)">
+<form id="add-clothingitem-form"
+    onsubmit="addClothingItem(inputClothingName.value, inputClothingDescription.value, inputGarmentID.value)">
     <label for="input-clothingName">Name: </label>
-    <input type="text" name="inputClothingName" id="input-clothingName">
+    <input type="text" name="inputClothingName" id="input-clothingName" required>
 
     <label for="input-clothingDescription">Description: </label>
     <input type="text" name="inputClothingDescription" id="input-clothingDescription">
@@ -51,7 +39,7 @@
     <label for="input-garmentID">Associated Garment Set: </label>
     <select name="inputGarmentID" id="input-garmentID">
         {{! <option value="">Select a Garment Set</option> }}
-        {{#each garments}} 
+        {{#each garments}}
         <option value="{{this.garmentID}}">{{this.garmentName}}</option>
         {{/each}}
     </select>
@@ -63,7 +51,8 @@
 {{!-- Update a clothing items CURRENTLY AJAX SETUP BUT WE CAN DO HTML POST--}}
 <h3>Update a Clothing Item</h3>
 <p>Use the form below to update information for a clothing item:</p>
-<form id="update-clothing-item-form" onsubmit="updateClothingItem(inputClothingIDNew.value, inputClothingDescriptionNew.value, inputGarmentIDNew.value)">
+<form id="update-clothing-item-form"
+    onsubmit="updateClothingItem(inputClothingIDNew.value, inputClothingDescriptionNew.value, inputGarmentIDNew.value)">
 
     <label for="input-clothingNameNew">Name: </label>
     <select name="inputClothingIDNew" id="input-clothingNameNew">

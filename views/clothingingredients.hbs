@@ -15,7 +15,7 @@
     <tbody>
         {{!-- For each row, print attributes in order --}}
         {{#each data}}
-        <tr  data-value={{this.clothingIngredientsID}}>
+        <tr data-value={{this.clothingIngredientsID}}>
             <td>{{this.clothingIngredientsID}}</td>
             <td>{{this.clothingName}}</td>
             <td>{{this.ingredientName}}</td>
@@ -29,10 +29,11 @@
 {{!-- Create a new clothing-ingredient --}}
 <h3>Add New Clothing Ingredient</h3>
 <p>Associate an ingredient to a clothing item using the form below:</p>
-<form id="add-clothingingredient-form" onsubmit="addClothingIngredient(inputClothingID.value, inputIngredientID.value, inputIngredientQty.value)">
+<form id="add-clothingingredient-form"
+    onsubmit="addClothingIngredient(inputClothingID.value, inputIngredientID.value, inputIngredientQty.value)">
     <label for="input-clothingID">Clothing Name: </label>
     <select name="inputClothingID" id="input-clothingID">
-        <option value="">Select a Clothing Item</option>
+        {{!-- <option value="">Select a Clothing Item</option> --}}
         {{#each clothingitems}}
         <option value="{{this.clothingID}}">{{this.clothingName}}</option>
         {{/each}}
@@ -40,14 +41,14 @@
 
     <label for="input-ingredientID">Ingredient Name: </label>
     <select name="inputIngredientID" id="input-ingredientID">
-        <option value="">Select an Ingredient</option>
+        {{!-- <option value="">Select an Ingredient</option> --}}
         {{#each ingredients}}
         <option value="{{this.ingredientID}}">{{this.ingredientName}}</option>
         {{/each}}
     </select>
 
     <label for="input-ingredientQty">Ingredient Quantity: </label>
-    <input type="number" name="inputIngredientQty" id="input-ingredientQty">
+    <input type="number" name="inputIngredientQty" id="input-ingredientQty" value="1" min="1">
 
     <div><input type="submit"></div>
 </form>
