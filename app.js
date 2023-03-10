@@ -140,6 +140,13 @@ app.get('/clothingitems', function (req, res) {
 // Create clothing item query
 app.post('/add-clothing-item-form', function (req, res) {
     let data = req.body;
+
+    // Capture NULL values
+    let garmentID = parseInt(data.garmentID);
+    if (isNaN(garmentID)) {
+        garmentID = 'NULL'
+    }
+
     let query1 = `INSERT INTO ClothingItems (clothingName, clothingDescription, garmentID) VALUES ('${data.inputClothingName}', '${data.inputClothingDescription}', ${data.inputGarmentID})`;
     db.pool.query(query1, function (error, rows, fields) {
         if (error) {
@@ -163,7 +170,7 @@ app.post('/add-clothing-item-form', function (req, res) {
     });
 });
 
-// Update clothing item (NEED TO HAVE A FUNCTION TO UPDATE FK TO NULL)
+// Update clothing item
 app.put("/update-clothing-item", function (req, res) {
     let data = req.body;
 
@@ -273,10 +280,10 @@ app.get('/clothingingredients', function (req, res) {
 
 
 // Create clothing ingredient query
-app.post('/add-clothing-ingredient-form', function(req, res) {
+app.post('/add-clothing-ingredient-form', function (req, res) {
     let data = req.body;
     let query1 = `INSERT INTO ClothingIngredients (clothingID, ingredientID, ingredientQty) VALUES (${data.inputClothingID}, ${data.inputIngredientID}, ${data.inputIngredientQty})`;
-    db.pool.query(query1, function(error, rows, fields) {
+    db.pool.query(query1, function (error, rows, fields) {
         if (error) {
             console.log(error);
             res.sendStatus(400);
@@ -286,7 +293,7 @@ app.post('/add-clothing-ingredient-form', function(req, res) {
                             FROM ClothingIngredients \
                             INNER JOIN ClothingItems ON ClothingIngredients.clothingID = ClothingItems.clothingID \
                             INNER JOIN Ingredients ON ClothingIngredients.ingredientID = Ingredients.ingredientID;';
-            db.pool.query(query2, function(error, rows, fields) {
+            db.pool.query(query2, function (error, rows, fields) {
                 if (error) {
                     console.log(error);
                     res.sendStatus(400);
@@ -436,11 +443,11 @@ app.get('/transactiondetails', function (req, res) {
 });
 
 // Create transaction detail query
-app.post('/add-transaction-details-form', function(req, res) {
+app.post('/add-transaction-details-form', function (req, res) {
     let data = req.body;
     let query1 = `INSERT INTO TransactionDetails (transactionID, ingredientID, ingredientQty) VALUES \ 
                     (${data.inputTransactionID}, ${data.inputIngredientID}, ${data.inputIngredientQty})`;
-    db.pool.query(query1, function(error, rows, fields) {
+    db.pool.query(query1, function (error, rows, fields) {
         if (error) {
             console.log(error);
             res.sendStatus(400);
@@ -456,7 +463,7 @@ app.post('/add-transaction-details-form', function(req, res) {
                             INNER JOIN TransactionDetails ON subquery1.transactionID = TransactionDetails.transactionID \
                             INNER JOIN Transactions ON TransactionDetails.transactionID = Transactions.transactionID \
                             INNER JOIN Ingredients ON TransactionDetails.ingredientID = Ingredients.ingredientID;';
-            db.pool.query(query2, function(error, rows, fields) {
+            db.pool.query(query2, function (error, rows, fields) {
                 if (error) {
                     console.log(error);
                     res.sendStatus(400);
