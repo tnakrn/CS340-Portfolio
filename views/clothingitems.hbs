@@ -39,6 +39,7 @@
     <label for="input-garmentID">Associated Garment Set: </label>
     <select name="inputGarmentID" id="input-garmentID">
         {{! <option value="">Select a Garment Set</option> }}
+        <option value="NULL">NULL</option>
         {{#each garments}}
         <option value="{{this.garmentID}}">{{this.garmentName}}</option>
         {{/each}}
@@ -68,6 +69,7 @@
     <label for="input-garmentIDNew">Associated Garment Set: </label>
     <select name="inputGarmentIDNew" id="input-garmentIDNew">
         {{! <option value="">Select a Garment Set</option> }}
+        <option value="NULL">NULL</option>
         {{#each garments}}
         <option value="{{this.garmentID}}">{{this.garmentName}}</option>
         {{/each}}
