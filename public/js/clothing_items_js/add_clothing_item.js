@@ -1,6 +1,6 @@
 // Prevent default action for submitting add transaction
 let addClothingItemForm = document.getElementById("add-clothingitem-form");
-addClothingItemForm.addEventListener("submit", function(e) {
+addClothingItemForm.addEventListener("submit", function (e) {
     e.preventDefault();
 });
 
@@ -11,7 +11,7 @@ function addClothingItem(clothingName, clothingDescription, garmentID) {
         inputClothingDescription: clothingDescription,
         inputGarmentID: garmentID
     }
-    
+
     // Setup our request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-clothing-item-form", true);
@@ -61,7 +61,7 @@ function addRowToTable(data) {
     row.appendChild(clothingNameCell);
     row.appendChild(clothingDescriptionCell);
     row.appendChild(garmentNameCell)
-    
+
     // Add the row to the table
     currentTable.appendChild(row);
 
