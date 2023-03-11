@@ -119,7 +119,7 @@ app.get('/clothingitems', function (req, res) {
     // Fill table
     let query1 = 'SELECT clothingID, clothingName, clothingDescription, GarmentSets.garmentName AS garmentName \
     FROM ClothingItems \
-    INNER JOIN GarmentSets ON ClothingItems.garmentID = GarmentSets.garmentID;';
+    LEFT JOIN GarmentSets ON ClothingItems.garmentID = GarmentSets.garmentID;';
     // To populate drop down
     let query2 = 'SELECT garmentID, garmentName FROM GarmentSets;';
 
@@ -141,12 +141,6 @@ app.get('/clothingitems', function (req, res) {
 app.post('/add-clothing-item-form', function (req, res) {
     let data = req.body;
 
-    // Capture NULL values
-    let garmentID = parseInt(data.garmentID);
-    if (isNaN(garmentID)) {
-        garmentID = 'NULL'
-    }
-
     let query1 = `INSERT INTO ClothingItems (clothingName, clothingDescription, garmentID) VALUES ('${data.inputClothingName}', '${data.inputClothingDescription}', ${data.inputGarmentID})`;
     db.pool.query(query1, function (error, rows, fields) {
         if (error) {
@@ -156,7 +150,7 @@ app.post('/add-clothing-item-form', function (req, res) {
         else {
             let query2 = 'SELECT clothingID, clothingName, clothingDescription, GarmentSets.garmentName AS garmentName \
                             FROM ClothingItems \
-                            INNER JOIN GarmentSets ON ClothingItems.garmentID = GarmentSets.garmentID;';
+                            LEFT JOIN GarmentSets ON ClothingItems.garmentID = GarmentSets.garmentID;';
             db.pool.query(query2, function (error, rows, fields) {
                 if (error) {
                     console.log(error);
@@ -170,13 +164,13 @@ app.post('/add-clothing-item-form', function (req, res) {
     });
 });
 
-// Update clothing item
+// Update clothing item (NEED TO HAVE A FUNCTION TO UPDATE FK TO NULL)
 app.put("/update-clothing-item", function (req, res) {
     let data = req.body;
 
     let clothingID = data.clothingID;
     let clothingDescription = data.clothingDescription;
-    let garmentID = data.garmentID
+    let garmentID = data.garmentID;
 
     let queryUpdateClothingItem = `UPDATE ClothingItems SET clothingDescription = ?, garmentID = ? \ 
                                     WHERE clothingID = ?`;
@@ -189,7 +183,7 @@ app.put("/update-clothing-item", function (req, res) {
         else {
             let query2 = 'SELECT clothingID, clothingName, clothingDescription, GarmentSets.garmentName AS garmentName \
                             FROM ClothingItems \
-                            INNER JOIN GarmentSets ON ClothingItems.garmentID = GarmentSets.garmentID;';
+                            LEFT JOIN GarmentSets ON ClothingItems.garmentID = GarmentSets.garmentID;';
             db.pool.query(query2, function (error, rows, fields) {
                 if (error) {
                     console.log(error);
