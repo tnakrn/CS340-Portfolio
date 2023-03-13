@@ -164,13 +164,13 @@ app.post('/add-clothing-item-form', function (req, res) {
     });
 });
 
-// Update clothing item (NEED TO HAVE A FUNCTION TO UPDATE FK TO NULL)
+// Update clothing item
 app.put("/update-clothing-item", function (req, res) {
     let data = req.body;
 
-    let clothingID = data.clothingID;
     let clothingDescription = data.clothingDescription;
     let garmentID = data.garmentID;
+    let clothingID = data.clothingID;
 
     let queryUpdateClothingItem = `UPDATE ClothingItems SET clothingDescription = ?, garmentID = ? \ 
                                     WHERE clothingID = ?`;
