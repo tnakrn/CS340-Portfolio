@@ -1,10 +1,15 @@
 // Prevent default action for submitting update clothing item form
 let updateClothingItemForm = document.getElementById("update-clothing-item-form");
-updateClothingItemForm.addEventListener("submit", function(e) {
+updateClothingItemForm.addEventListener("submit", function (e) {
     e.preventDefault();
 });
 
-function updateClothingItem(clothingID, clothingDescription, garmentID){
+function updateClothingItem(clothingID, clothingDescription, garmentID) {
+    // Capture if garmentID is null
+    if (isNaN(garmentID)) {
+        garmentID = null;
+    }
+
     // Put our data we want to send in a javascript object
     let data = {
         clothingID: clothingID,
@@ -17,7 +22,7 @@ function updateClothingItem(clothingID, clothingDescription, garmentID){
     xhttp.open("PUT", "/update-clothing-item", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    
+
     // Tell our request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -35,25 +40,25 @@ function updateClothingItem(clothingID, clothingDescription, garmentID){
 
 }
 
-function updateRow(data, clothingID){
+function updateRow(data, clothingID) {
     let parsedData = JSON.parse(data);
-    
+
     let table = document.getElementById("clothingitems-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
-    //iterate through rows
-    //rows would be accessed using the "row" variable assigned in the for loop
+        //iterate through rows
+        //rows would be accessed using the "row" variable assigned in the for loop
         if (table.rows[i].getAttribute("data-value") == clothingID) {
-                // Get the location of the row where we found the matching transaction ID
-                let updateRowIndex = table.getElementsByTagName("tr")[i];
+            // Get the location of the row where we found the matching transaction ID
+            let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-                // Get td of player value
-                let tdDescription = updateRowIndex.getElementsByTagName("td")[2];
-                let tdGarmentName = updateRowIndex.getElementsByTagName("td")[3];
+            // Get td of player value
+            let tdDescription = updateRowIndex.getElementsByTagName("td")[2];
+            let tdGarmentName = updateRowIndex.getElementsByTagName("td")[3];
 
-                // Reassign player to our value we updated to
-                tdDescription.innerText = parsedData[i-1].clothingDescription;
-                tdGarmentName.innerText = parsedData[i-1].garmentName;
+            // Reassign player to our value we updated to
+            tdDescription.innerText = parsedData[i - 1].clothingDescription;
+            tdGarmentName.innerText = parsedData[i - 1].garmentName;
         }
     }
 }
