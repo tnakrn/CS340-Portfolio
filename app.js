@@ -1,3 +1,9 @@
+// Citation for the following code:
+// Date: 03/20/2023
+// Adapted from CS340 Starter App code
+// Unlike the Starter App code, we did not use mapping
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 /*
     SETUP
 */
@@ -9,7 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
-PORT = 31598;
+PORT = 31596;
 
 // Database
 var db = require('./database/db-connector');
