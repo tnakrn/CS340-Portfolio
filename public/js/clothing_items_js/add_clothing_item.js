@@ -1,4 +1,11 @@
-// Prevent default action for submitting add transaction
+// Citation for the following code:
+// Date: 03/20/2023
+// Adapted from CS340 Starter App code
+// This is based on CS340 Starter App, but we have our some of code formatted differently (functions,
+// parameters, how we are getting our data)
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+// Prevent default action for submitting
 let addClothingItemForm = document.getElementById("add-clothingitem-form");
 addClothingItemForm.addEventListener("submit", function (e) {
     e.preventDefault();

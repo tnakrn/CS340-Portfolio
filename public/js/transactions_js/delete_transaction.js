@@ -1,3 +1,10 @@
+// Citation for the following code:
+// Date: 03/20/2023
+// Adapted from CS340 Starter App code
+// This is based on CS340 Starter App, but we have our some of code formatted differently (functions,
+// parameters, how we are removing child)
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 function deleteTransaction(transactionID) {
     // Put transactionID in a JSON object
     let data = {
@@ -25,16 +32,16 @@ function deleteTransaction(transactionID) {
 }
 
 
-function deleteRow(transactionID){
+function deleteRow(transactionID) {
     let table = document.getElementById("transaction-table");
     let selectTransaction = document.getElementById("input-transactionIDNew");
     for (let i = 0; row = table.rows[i]; i++) {
-    // Iterate through rows
-    // Delete row with matching transactionID
+        // Iterate through rows
+        // Delete row with matching transactionID
         if (table.rows[i].getAttribute("data-value") == transactionID) {
-                table.deleteRow(i);
-                selectTransaction.removeChild(selectTransaction.children[i-1]);
-                break;
+            table.deleteRow(i);
+            selectTransaction.removeChild(selectTransaction.children[i - 1]);
+            break;
         }
     }
 }

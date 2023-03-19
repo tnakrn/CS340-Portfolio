@@ -1,3 +1,10 @@
+// Citation for the following code:
+// Date: 03/20/2023
+// Adapted from CS340 Starter App code
+// This is based on CS340 Starter App, but we have our some of code formatted differently (functions,
+// parameters, how we are getting our data)
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 // Prevent default action for submitting add player
 let addPlayerForm = document.getElementById("add-player-form");
 addPlayerForm.addEventListener("submit", function (e) {

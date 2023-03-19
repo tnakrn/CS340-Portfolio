@@ -1,6 +1,13 @@
+// Citation for the following code:
+// Date: 03/20/2023
+// Adapted from CS340 Starter App code
+// This is based on CS340 Starter App, but we have our some of code formatted differently (functions,
+// parameters, how we are getting our data)
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 // Prevent default action for submitting add transaction
 let addTransactionForm = document.getElementById("add-transaction-form");
-addTransactionForm.addEventListener("submit", function(e) {
+addTransactionForm.addEventListener("submit", function (e) {
     e.preventDefault();
 });
 
@@ -10,7 +17,7 @@ function addTransaction(transactionDate, playerID) {
         inputTransactionDate: transactionDate,
         inputPlayerID: playerID
     }
-    
+
     // Setup our request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-transaction-form", true);
@@ -60,7 +67,7 @@ function addRowToTable(data) {
     row.appendChild(transactionDateCell);
     row.appendChild(playerCell);
     row.appendChild(deleteCell)
-    
+
     // Add the row to the table
     currentTable.appendChild(row);
 

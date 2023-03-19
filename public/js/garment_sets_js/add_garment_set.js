@@ -1,6 +1,13 @@
+// Citation for the following code:
+// Date: 03/20/2023
+// Adapted from CS340 Starter App code
+// This is based on CS340 Starter App, but we have our some of code formatted differently (functions,
+// parameters, how we are getting our data)
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 // Prevent default action for submitting add garment set
 let addGarmentSetForm = document.getElementById("add-garmentset-form");
-addGarmentSetForm.addEventListener("submit", function(e) {
+addGarmentSetForm.addEventListener("submit", function (e) {
     e.preventDefault();
 });
 
@@ -10,7 +17,7 @@ function addGarmentSet(garmentName, garmentDescription) {
         inputGarmentName: garmentName,
         inputGarmentDescription: garmentDescription
     }
-    
+
     // Setup our request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-garment-set-form", true);
@@ -61,7 +68,7 @@ function addRowToTable(data) {
     row.appendChild(idCell);
     row.appendChild(garmentNameCell);
     row.appendChild(garmentDescriptionCell);
-    
+
     // Add the row to the table
     currentTable.appendChild(row);
 

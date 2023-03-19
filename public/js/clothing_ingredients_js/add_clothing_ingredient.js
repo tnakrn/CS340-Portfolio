@@ -1,6 +1,13 @@
-// Prevent default action for submitting add transaction
+// Citation for the following code:
+// Date: 03/20/2023
+// Adapted from CS340 Starter App code
+// This is based on CS340 Starter App, but we have our some of code formatted differently (functions,
+// parameters, how we are getting our data)
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+// Prevent default action for submitting 
 let addClothingIngredientForm = document.getElementById("add-clothingingredient-form");
-addClothingIngredientForm.addEventListener("submit", function(e) {
+addClothingIngredientForm.addEventListener("submit", function (e) {
     e.preventDefault();
 });
 
@@ -11,7 +18,7 @@ function addClothingIngredient(clothingID, ingredientID, ingredientQty) {
         inputIngredientID: ingredientID,
         inputIngredientQty: ingredientQty
     }
-    
+
     // Setup our request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-clothing-ingredient-form", true);
@@ -61,7 +68,7 @@ function addRowToTable(data) {
     row.appendChild(clothingNameCell);
     row.appendChild(ingredientNameCell);
     row.appendChild(ingredientQtyCell)
-    
+
     // Add the row to the table
     currentTable.appendChild(row);
 }
