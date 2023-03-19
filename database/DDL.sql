@@ -1,8 +1,8 @@
 -- Project Name: TrapperDB
 -- Project Group: 55
 -- Team Members: Alden Chico & Christine Kuran
--- Date: 02/14/2023
--- Description: Project Step 3 Draft DDL
+-- Date: 03/20/2023
+-- Description: Project Step 6 DDL
 
 -- Disable commits and foreign key checks
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,7 +40,7 @@ CREATE OR REPLACE TABLE  `ClothingItems` (
   `clothingID` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
   `clothingName` varchar(145) NOT NULL UNIQUE,
   `clothingDescription` varchar(250) DEFAULT NULL,
-  `garmentID` int(11),
+  `garmentID` int(11) DEFAULT NULL,
   PRIMARY KEY (`clothingID`),
   FOREIGN KEY (`garmentID`) REFERENCES `GarmentSets` (`garmentID`) ON DELETE SET NULL ON UPDATE CASCADE
 );
@@ -101,12 +101,12 @@ CREATE OR REPLACE TABLE `ClothingIngredients` (
 
 INSERT INTO `ClothingIngredients` (`clothingIngredientsID`, `clothingID`, `ingredientID`, `ingredientQty`) VALUES
 (1, 1, 1, 1),
-(2, 1, 1, 1),
-(3, 1, 2, 1),
-(4, 1, 1, 1),
-(5, 1, 3, 1),
-(6, 1, 4, 1),
-(7, 1, 5, 2);
+(2, 2, 1, 1),
+(3, 2, 2, 1),
+(4, 3, 1, 1),
+(5, 3, 3, 1),
+(6, 4, 4, 1),
+(7, 4, 5, 2);
 
 -- --------------------------------------------------------
 
